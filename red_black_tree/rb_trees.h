@@ -6,6 +6,7 @@
  *
  * @RED: 0 -> Red node
  * @BLACK: 1 -> Black node
+ * @DOUBLE_BLACK: temp color used during delete
  */
 typedef enum rb_color_e
 {
