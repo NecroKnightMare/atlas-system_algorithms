@@ -70,7 +70,6 @@ void rotate_right(rb_tree_t **tree, rb_tree_t *node)
 	{
 		left->right->parent = node;
 	}
-
 	left->parent = node->parent;
 	if (!node->parent)
 	{
@@ -82,7 +81,6 @@ void rotate_right(rb_tree_t **tree, rb_tree_t *node)
 	} else {
 		node->parent->left = left;
 	}
-
 	left->right = node;
 	node->parent = left;
 }
