@@ -20,7 +20,9 @@ rb_tree_t *bst_insert(rb_tree_t **tree, int value)
 		else if (value > current->n)
 			current = current->right;
 		else
+		{
 			return NULL;
+		}
 	}
 	return (rb_tree_node(parent, value, RED));
 }
@@ -35,10 +37,7 @@ void rotate_left(rb_tree_t **tree, rb_tree_t *node)
 
 	node->right = right->left;
 	if (right->left)
-	{
 		right->left->parent = node;
-	}
-
 	right->parent = node->parent;
 	if (!node->parent)
 		*tree = right;
@@ -46,7 +45,8 @@ void rotate_left(rb_tree_t **tree, rb_tree_t *node)
 	{
 		node->parent->left = right;
 	}
-	else {
+	else
+	{
 		node->parent->right = right;
 	}
 
@@ -76,7 +76,8 @@ void rotate_right(rb_tree_t **tree, rb_tree_t *node)
 	{
 		node->parent->right = left;
 	}
-	else {
+	else
+	{
 		node->parent->left = left;
 	}
 	left->right = node;
@@ -112,6 +113,7 @@ void fix_insert(rb_tree_t **tree, rb_tree_t *node)
 	while (node->parent && node->parent->color == RED)
 	{
 		rb_tree_t *uncle = UNCLE(node);
+
 		if (uncle && uncle->color == RED)
 		{
 			RECOLOR(node);
@@ -120,14 +122,16 @@ void fix_insert(rb_tree_t **tree, rb_tree_t *node)
 		else
 		{
 			left = (node->parent == node->parent->parent->left);
-			if ((left && node == node->parent->right) || (!left && node == node->parent->left))
+			if ((left && node == node->parent->right) ||
+			(!left && node == node->parent->left))
 			{
 				node = node->parent;
 				left ? rotate_left(tree, node) : rotate_right(tree, node);
 			}
 			node->parent->color = BLACK;
 			node->parent->parent->color = RED;
-			left ? rotate_right(tree, node->parent->parent) : rotate_left(tree, node->parent->parent);
+			left ? rotate_right(tree, node->parent->parent) :
+			rotate_left(tree, node->parent->parent);
 		}
 	}
 	(*tree)->color = BLACK;
@@ -153,15 +157,14 @@ rb_tree_t *rb_tree_insert(rb_tree_t **tree, int value)
 		return (*tree);
 	}
 	new_node = bst_insert(tree, value);
-	if(!new_node)
+	if (!new_node)
 	{
 		return (NULL);
 	}
 	if (new_node->parent->n > value)
-	{
 		new_node->parent->left = new_node;
-	}
-	else {
+	else
+	{
 		new_node->parent->right = new_node;
 	}
 	fix_insert(tree, new_node);
