@@ -21,7 +21,7 @@ rb_tree_t *bst_insert(rb_tree_t **tree, int value)
 			current = current->right;
 		else
 		{
-			return NULL;
+			return (NULL);
 		}
 	}
 	return (rb_tree_node(parent, value, RED));
