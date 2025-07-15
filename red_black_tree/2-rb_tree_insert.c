@@ -45,7 +45,7 @@ void rotate_left(rb_tree_t **tree, rb_tree_t *node)
 	else if (node == node->parent->left)
 	{
 		node->parent->left = right;
-	} 
+	}
 	else {
 		node->parent->right = right;
 	}
@@ -75,7 +75,7 @@ void rotate_right(rb_tree_t **tree, rb_tree_t *node)
 	else if (node == node->parent->right)
 	{
 		node->parent->right = left;
-	} 
+	}
 	else {
 		node->parent->left = left;
 	}
@@ -160,7 +160,7 @@ rb_tree_t *rb_tree_insert(rb_tree_t **tree, int value)
 	if (new_node->parent->n > value)
 	{
 		new_node->parent->left = new_node;
-	} 
+	}
 	else {
 		new_node->parent->right = new_node;
 	}
