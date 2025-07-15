@@ -84,6 +84,22 @@ void rotate_right(rb_tree_t **tree, rb_tree_t *node)
 	left->right = node;
 	node->parent = left;
 }
+/**
+ * UNCLE - macro to get the uncle of a node
+ * @n: inserted node
+ */
+#define UNCLE(n) ((n)->parent == (n)->parent->parent->left ? \
+		(n)->parent->parent->right : (n)->parent->parent->left)
+
+/**
+ * RECOLOR - macro to recolor a node
+ * @n: inserted node
+ */
+#define RECOLOR(n) do { \
+		(n)->parent->color = BLACK; \
+		UNCLE(n)->color = BLACK; \
+		(n)->parent->parent->color = RED; \
+	} while (0)
 
 /**
 * fix_insert - fix red black tree after insertion
@@ -93,47 +109,28 @@ void rotate_right(rb_tree_t **tree, rb_tree_t *node)
 
 void fix_insert(rb_tree_t **tree, rb_tree_t *node)
 {
-	rb_tree_t *uncle;
+	
+	int left;
 
 	while (node->parent && node->parent->color == RED)
 	{
-		if (node->parent == node->parent->parent->left)
+		rb_tree_t *uncle = UNCLE(node);
+		if (uncle && uncle->color == RED)
 		{
-			uncle = node->parent->parent->right;
-			if (uncle && uncle->color == RED)
+			RECOLOR(node);
+			node = node->parent->parent;
+		}
+		else
+		{
+			left = (node->parent == node->parent->parent->left);
+			if ((left && node == node->parent->right) || (!left && node == node->parent->left))
 			{
-				node->parent->color = BLACK;
-				uncle->color = BLACK;
-				node->parent->parent->color = RED;
-				node = node->parent->parent;
-			} else {
-				if (node == node->parent->right)
-				{
-					node = node->parent;
-					rotate_left(tree, node);
-				}
-				node->parent->color = BLACK;
-				node->parent->parent->color = RED;
-				rotate_right(tree, node->parent->parent);
+				node = node->parent;
+				left ? rotate_left(tree, node) : rotate_right(tree, node);
 			}
-		} else {
-			uncle = node->parent->parent->left;
-			if (uncle && uncle->color == RED)
-			{
-				node->parent->color = BLACK;
-				uncle->color = BLACK;
-				node->parent->parent->color = RED;
-				node = node->parent->parent;
-			} else {
-				if (node == node->parent->left)
-				{
-					node = node->parent;
-					rotate_right(tree, node);
-				}
-				node->parent->color = BLACK;
-				node->parent->parent->color = RED;
-				rotate_left(tree, node->parent->parent);
-			}
+			node->parent->color = BLACK;
+			node->parent->parent->color = RED;
+			left ? rotate_right(tree, node->parent->parent) : rotate_left(tree, node->parent->parent);
 		}
 	}
 	(*tree)->color = BLACK;
