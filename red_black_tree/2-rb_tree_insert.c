@@ -41,13 +41,12 @@ void rotate_left(rb_tree_t **tree, rb_tree_t *node)
 
 	right->parent = node->parent;
 	if (!node->parent)
-	{
 		*tree = right;
-	}
 	else if (node == node->parent->left)
 	{
 		node->parent->left = right;
-	} else {
+	} 
+	else {
 		node->parent->right = right;
 	}
 
@@ -72,13 +71,12 @@ void rotate_right(rb_tree_t **tree, rb_tree_t *node)
 	}
 	left->parent = node->parent;
 	if (!node->parent)
-	{
 		*tree = left;
-	}
 	else if (node == node->parent->right)
 	{
 		node->parent->right = left;
-	} else {
+	} 
+	else {
 		node->parent->left = left;
 	}
 	left->right = node;
@@ -118,7 +116,6 @@ void fix_insert(rb_tree_t **tree, rb_tree_t *node)
 		{
 			RECOLOR(node);
 			node = node->parent->parent;
-			
 		}
 		else
 		{
@@ -147,7 +144,9 @@ rb_tree_t *rb_tree_insert(rb_tree_t **tree, int value)
 	rb_tree_t *new_node;
 
 	if (!tree)
+	{
 		return (NULL);
+	}
 	if (!*tree)
 	{
 		*tree = rb_tree_node(NULL, value, BLACK);
@@ -155,7 +154,9 @@ rb_tree_t *rb_tree_insert(rb_tree_t **tree, int value)
 	}
 	new_node = bst_insert(tree, value);
 	if(!new_node)
+	{
 		return (NULL);
+	}
 	if (new_node->parent->n > value)
 	{
 		new_node->parent->left = new_node;
