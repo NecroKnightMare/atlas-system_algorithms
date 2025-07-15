@@ -2,6 +2,20 @@
 #include <stddef.h>
 
 /**
+ * File: 2-rb_tree_insert.c
+ * Description: Functions to insert and balance nodes in a red-black tree
+ *
+ * Functions:
+ * - bst_insert: Inserts a value into binary tree
+ * - rotate_left: Performs a left rotation
+ * - rotate_right: Performs a right rotation
+ * - UNCLE: Macro to determine the uncle of a given node
+ * - RECOLOR: Macro to recolor node after insertion
+ * - fix_insert: Rebalances red-black tree after insertion
+ * - rb_tree_insert: insert a value into red-black tree
+ */
+
+/**
  * bst_insert
  * @tree: pointer to root
  * @value: insert value
