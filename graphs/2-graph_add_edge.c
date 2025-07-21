@@ -36,7 +36,7 @@ static int append_edge(vertex_t *from, vertex_t *to)
 }
 
 /**
- * graph_add_edge = adds edge between two vertices
+ * graph_add_edge - adds edge between two vertices
  * @graph: pointer to graph
  * @src: string id source vertex
  * @dest: string id to destination vertex
