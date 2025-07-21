@@ -6,7 +6,7 @@
  * append_edge - Helper function to append an edge to a vertex's edge
  * @from: Pointer to the source vertex
  * @to: Pointer to the destination vertex
- * 
+ *
  * Return: 1 on success, 0 on failure
  */
 
@@ -46,7 +46,8 @@ static int append_edge(vertex_t *from, vertex_t *to)
  * Return: 1(success), 0(failure)
  */
 
-int graph_add_edge(graph_t *graph, const char *src, const char *dest, edge_type_t type)
+int graph_add_edge(graph_t *graph,
+	const char *src, const char *dest, edge_type_t type)
 {
 	vertex_t *from = NULL, *to = NULL, *vertex;
 
@@ -65,7 +66,7 @@ int graph_add_edge(graph_t *graph, const char *src, const char *dest, edge_type_
 		return (0);
 
 	if (type == BIDIRECTIONAL && !append_edge(to, from))
-			return (0);
+		return (0);
 
 	return (1);
 }
