@@ -6,7 +6,7 @@
  * graph_add_vertex - Adds a new vertex to the graph
  * @graph: Pointer to graph structure
  * @str: string to store vertex
- * 
+ *
  * Return: pointer to created vertex, or NULL on failure
  */
 
