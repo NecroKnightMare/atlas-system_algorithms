@@ -3,7 +3,7 @@
 
 /**
  * graph_create - Creates a new graph
- * 
+ *
  * Return: Pointer to the newly created graph, or NULL on failure
  */
 
@@ -13,7 +13,7 @@ graph_t *graph_create(void)
 
 	new_graph = malloc(sizeof(graph_t));
 
-	if(!new_graph)
+	if (!new_graph)
 		return (NULL);
 
 	new_graph->vertices = NULL;
