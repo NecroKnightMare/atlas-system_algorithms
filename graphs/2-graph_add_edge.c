@@ -3,36 +3,20 @@
 #include "graphs.h"
 
 /**
- * graph_add_edge = adds edge between two vertices
- * @graph: pointer to graph
- * @src: string id source vertex
- * @dest: string id to destination vertex
- * @type: type of edge
- * (unidirectional or bidirectional)
- *
- * Return: 1(success), 0(failure)
+ * append_edge - Helper function to append an edge to a vertex's edge
+ * @from: Pointer to the source vertex
+ * @to: Pointer to the destination vertex
+ * 
+ * Return: 1 on success, 0 on failure
  */
 
-int graph_add_edge(graph_t *graph, const char *src, const char *dest, edge_type_t type)
+static int append_edge(vertex_t *from, vertex_t *to)
 {
-	vertex_t *from = NULL, *to = NULL, *vertex;
 	edge_t *new_edge, *tail;
 
-	if (!graph || !src || !dest)
-		return (0);
-	for (vertex = graph->vertices; vertex; vertex = vertex->next)
-	{
-		if (!from && strcmp(vertex->content, src) == 0)
-			from = vertex;
-		if (!to && strcmp(vertex->content, dest) == 0)
-			to = vertex;
-	}
-	if (!from || !to)
-		return (0);
 	new_edge = malloc(sizeof(edge_t));
 	if (!new_edge)
 		return (0);
-
 	new_edge->dest = to;
 	new_edge->next = NULL;
 
@@ -47,30 +31,41 @@ int graph_add_edge(graph_t *graph, const char *src, const char *dest, edge_type_
 			tail = tail->next;
 		tail->next = new_edge;
 	}
+	from->nb_edges++;
+	return (1);
+}
 
-	if (type == BIDIRECTIONAL)
+/**
+ * graph_add_edge = adds edge between two vertices
+ * @graph: pointer to graph
+ * @src: string id source vertex
+ * @dest: string id to destination vertex
+ * @type: type of edge
+ * (unidirectional or bidirectional)
+ *
+ * Return: 1(success), 0(failure)
+ */
+
+int graph_add_edge(graph_t *graph, const char *src, const char *dest, edge_type_t type)
+{
+	vertex_t *from = NULL, *to = NULL, *vertex;
+
+	if (!graph || !src || !dest)
+		return (0);
+	for (vertex = graph->vertices; vertex; vertex = vertex->next)
 	{
-		edge_t *reverse_edge = malloc(sizeof(edge_t));
-
-		if (!reverse_edge)
-		{
-			free(new_edge);
-			return (0);
-		}
-		reverse_edge->dest = from;
-		reverse_edge->next = NULL;
-
-		if (!to->edges)
-		{
-			to->edges = reverse_edge;
-		}
-		else
-		{
-			tail = to->edges;
-			while (tail->next)
-				tail = tail->next;
-			tail->next = reverse_edge;
-		}
+		if (!from && strcmp(vertex->content, src) == 0)
+			from = vertex;
+		if (!to && strcmp(vertex->content, dest) == 0)
+			to = vertex;
 	}
+	if (!from || !to)
+		return (0);
+	if (!append_edge(from, to))
+		return (0);
+
+	if (type == BIDIRECTIONAL && !append_edge(to, from))
+			return (0);
+
 	return (1);
 }
