@@ -15,6 +15,7 @@ static void dfs_helper(const vertex_t *v, size_t depth,
 	char *visited, size_t *max)
 {
 	edge_t *edge;
+	
 	if (!v || visited[v->index])
 		return;
 	visited[v->index] = 1;
