@@ -50,10 +50,8 @@ size_t breadth_first_traverse(const graph_t *graph,
 	if (!graph || !action || graph->nb_vertices == 0)
 		return (0);
 	visited = calloc(graph->nb_vertices, sizeof(char));
-
 	if (!visited)
 		return (0);
-
 	tail = NULL;
 	head = enqueue(&tail, graph->vertices, 0);
 
@@ -68,25 +66,20 @@ size_t breadth_first_traverse(const graph_t *graph,
 		{
 			action(head->v, head->depth);
 			visited[head->v->index] = 1;
-
 			if (head->depth > max_depth)
 				max_depth = head->depth;
-
 			for (e = head->v->edges; e; e = e->next)
 			{
-				if (!visited[e->dest->index])
+				if (!visited[e->dest->index] && !enqueue(&tail, e->dest, head->depth + 1))
 				{
-					if (!enqueue(&tail, e->dest, head->depth + 1))
+					free(visited);
+					while (head)
 					{
-						free(visited);
-						while (head)
-						{
-							temp = head;
-							head = head->next;
-							free(temp);
-						}
-						return (0);
+						temp = head;
+						head = head->next;
+						free(temp);
 					}
+					return (0);
 				}
 			}
 		}
