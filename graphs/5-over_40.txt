@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "graphs.h"
+#include "queue.h"
 
 /**
  * enqueue - adds vertex to BFS queue
@@ -18,7 +19,7 @@ static vertex_queue_t *enqueue(vertex_queue_t **queue,
 
 	if (!new)
 		return (NULL);
-	
+
 	new->v = v;
 	new->depth = depth;
 	new->next = NULL;
@@ -53,7 +54,6 @@ size_t breadth_first_traverse(const graph_t *graph,
 
 	if (!visited)
 		return (0);
-
 	tail = NULL;
 	head = enqueue(&tail, graph->vertices, 0);
 
