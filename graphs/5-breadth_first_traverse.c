@@ -12,13 +12,13 @@
  */
 static vertex_queue_t *enqueue(vertex_queue_t **queue,
 	const vertex_t *v, size_t depth)
-	{
+{
 	vertex_queue_t *new;
-	new = malloc(sizeof(vertex_queue_t));
 
+	new = malloc(sizeof(vertex_queue_t));
 	if (!new)
 		return (NULL);
-	
+
 	new->v = v;
 	new->depth = depth;
 	new->next = NULL;
