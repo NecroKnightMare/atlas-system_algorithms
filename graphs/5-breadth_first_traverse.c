@@ -72,7 +72,6 @@ size_t breadth_first_traverse(const graph_t *graph,
 		free(visited);
 		return (0);
 	}
-
 	while (head)
 	{
 		if (!visited[head->v->index])
