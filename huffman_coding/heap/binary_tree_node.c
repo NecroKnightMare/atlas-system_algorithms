@@ -6,7 +6,7 @@
  * @parent: pointer to parent node
  * @data: data to store in node
  *
- *Return: pointer to created node or NULL 
+ *Return: pointer to created node or NULL
  */
 binary_tree_node_t *binary_tree_node(binary_tree_node_t *parent, void *data)
 {
