@@ -3,7 +3,7 @@
 
 /**
  * help_create - Creates a new heap structure
- * @data: pointer to function comparing two elements
+ * @data_cmp: pointer to function comparing two elements
  *
  *Return: pointer to the newly created heap structure or NULL
  */
