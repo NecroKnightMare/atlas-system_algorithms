@@ -37,7 +37,7 @@ static binary_tree_node_t *get_last_node(heap_t *heap)
 	while (depth--)
 		node = (path >> depth) & 1 ? node->right : node->left;
 
-	return (node);	
+	return (node);
 }
 
 /**
@@ -60,7 +60,7 @@ static void bubble_down(heap_t *heap, binary_tree_node_t *node)
 
 		if (child == node)
 			break;
-			
+
 		swap_data(node, child);
 		node = child;
 	}
