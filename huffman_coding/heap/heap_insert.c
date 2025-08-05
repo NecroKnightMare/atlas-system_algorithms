@@ -67,7 +67,7 @@ static binary_tree_node_t *find_insertion_parent(heap_t *heap)
  * @heap: pointer to the heap
  * @data: pointer to the data to store
  *
- *Return: pointer to the new node, or NULL on failure 
+ *Return: pointer to the new node, or NULL on failure
  */
 
 binary_tree_node_t *heap_insert(heap_t *heap, void *data)
@@ -88,7 +88,7 @@ binary_tree_node_t *heap_insert(heap_t *heap, void *data)
 	parent = find_insertion_parent(heap);
 	if (!parent)
 		return (NULL);
-	
+
 	new_node = binary_tree_node(parent, data);
 	if (!new_node)
 		return (NULL);
@@ -97,7 +97,7 @@ binary_tree_node_t *heap_insert(heap_t *heap, void *data)
 		parent->left = new_node;
 	else
 		parent->right = new_node;
-	
+
 	bubble_up(heap, new_node);
 	heap->size++;
 	return (new_node);
