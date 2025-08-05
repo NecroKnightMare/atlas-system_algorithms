@@ -17,7 +17,7 @@ void swap_data(binary_tree_node_t *a, binary_tree_node_t *b)
 }
 
 /**
- * bubble_up  restores min heap property by moving the node up
+ * bubble_up - restores min heap property by moving the node up
  * @heap: pointer to the heap
  * @node: new node to bubble up
  */
