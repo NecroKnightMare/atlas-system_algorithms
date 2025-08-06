@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "huffman.h"
-#include "heap.h"
 
 /**
  * main - Entry point

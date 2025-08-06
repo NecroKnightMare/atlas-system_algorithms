@@ -13,4 +13,7 @@ typedef struct symbol_s
     size_t freq;
 } symbol_t;
 
+/*symbol prototype*/
+symbol_t *symbol_create(char data, size_t freq);
+
 #endif /* HUFFMAN_H */
