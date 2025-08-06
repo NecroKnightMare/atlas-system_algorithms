@@ -40,5 +40,6 @@ void heap_delete(heap_t *heap, void (*free_data)(void *));
 
 /*huffman prototypes*/
 heap_t *huffman_priority_queue(char *data, size_t *freq, size_t size);
+int huffman_extract_and_insert(heap_t *priority_queue);
 
 #endif /* _HEAP_H_ */
