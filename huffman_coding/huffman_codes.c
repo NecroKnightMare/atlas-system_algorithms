@@ -34,14 +34,14 @@ static void print_codes(binary_tree_node_t *node, char *code, size_t depth)
 	print_codes(node->right, code, depth + 1);
 }
 /**
- * free_tree - recursively frees the Huffman tree 
+ * free_tree - recursively frees the Huffman tree
  * @node: current node in the Huffman tree
  */
 static void free_tree(binary_tree_node_t *node)
 {
 	if (!node)
 		return;
-	
+
 	free_tree(node->left);
 	free_tree(node->right);
 	free(node->data);
