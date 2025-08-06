@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "heap.h"
 #include "huffman.h"
 
@@ -32,6 +33,20 @@ static void print_codes(binary_tree_node_t *node, char *code, size_t depth)
 	code[depth] = '1';
 	print_codes(node->right, code, depth + 1);
 }
+/**
+ * free_tree - recursively frees the Huffman tree 
+ * @node: current node in the Huffman tree
+ */
+static void free_tree(binary_tree_node_t *node)
+{
+	if (!node)
+		return;
+	
+	free_tree(node->left);
+	free_tree(node->right);
+	free(node->data);
+	free(node);
+}
 
 /**
  * huffman_codes - builds tree and prints code for symbols
@@ -56,13 +71,13 @@ int huffman_codes(char *data, size_t *freq, size_t size)
 	code = malloc(size + 1);
 	if (!code)
 	{
-		binary_tree_delete(root, free);
+		free_tree(root);
 		return (0);
 	}
 
 	print_codes(root, code, 0);
 
 	free(code);
-	binary_tree_delete(root, free);
+	free_tree(root);
 	return (1);
 }
