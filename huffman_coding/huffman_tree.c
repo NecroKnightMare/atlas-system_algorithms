@@ -33,7 +33,7 @@ binary_tree_node_t *huffman_tree(char *data, size_t *freq, size_t size)
 			return (NULL);
 		}
 		new_symbol = symbol_create(-1, ((symbol_t *)node1->data)->freq +
-					((symbol_t *)node2->data)->freq);
+				((symbol_t *)node2->data)->freq);
 
 		if (!new_symbol)
 		{
