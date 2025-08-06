@@ -17,12 +17,12 @@ int symbol_cmp(void *a, void *b)
 	sym_b = ((binary_tree_node_t *)b)->data;
 
 	/*task 8*/
-	if (sym_a->freq != sym_b->freq)
+	/*if (sym_a->freq != sym_b->freq)
 		return (sym_a->freq - sym_b->freq);
 
-	return ((int)sym_a->data - (int)sym_b->data);
+	return ((int)sym_a->data - (int)sym_b->data);*/
 	/*task 6*/
-	/*return (sym_a->freq - sym_b->freq);*/
+	return (sym_a->freq - sym_b->freq);
 }
 
 /**
