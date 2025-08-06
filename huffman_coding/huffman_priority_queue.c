@@ -3,7 +3,7 @@
 #include "huffman.h"
 
 /**
- * symbol_cmp - compares function for MIN heap 
+ * symbol_cmp - compares function for MIN heap
  * @a: pointer to first binary_tree_node_t
  * @b: pointer to second binary_tree_node_t
  * Return: negative if a < b, positive if a > b, zero if a == b(MIN behavior)
@@ -35,7 +35,7 @@ heap_t *huffman_priority_queue(char *data, size_t *freq, size_t size)
 	size_t i;
 
 	if (!data || !freq || size == 0)
-        return (NULL);
+		return (NULL);
 
 	heap = heap_create(symbol_cmp);
 	if (!heap)
