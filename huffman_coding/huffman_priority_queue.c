@@ -12,29 +12,17 @@
 int symbol_cmp(void *a, void *b)
 {
 	symbol_t *sym_a, *sym_b;
-	binary_tree_node_t *node_a, *node_b;
-	size_t freq_a, freq_b;
 
-	node_a = (binary_tree_node_t *)a;
-	node_b = (binary_tree_node_t *)b;
-	sym_a = node_a->data;
-	sym_b = node_b->data;
-	freq_a = sym_a ? sym_a->freq : 0;
-	freq_b = sym_b ? sym_b->freq : 0;
+	sym_a = ((binary_tree_node_t *)a)->data;
+	sym_b = ((binary_tree_node_t *)b)->data;
 
-	if (freq_a != freq_b)
-		return (freq_a - freq_b);
-	
-	if (sym_a && sym_b)
-		return ((int)sym_a->data - (int)sym_b->data);
+	/*task 8*/
+	if (sym_a->freq != sym_b->freq)
+		return (sym_a->freq - sym_b->freq);
 
-	if (sym_a && !sym_b)
-		return (-1);
-
-	if (!sym_a && sym_b)
-		return (1);
-
-	return (node_a > node_b) - (node_a < node_b);
+	return ((int)sym_a->data - (int)sym_b->data);
+	/*task 6*/
+	/*return (sym_a->freq - sym_b->freq);*/
 }
 
 /**
