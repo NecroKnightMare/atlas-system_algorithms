@@ -38,6 +38,7 @@ binary_tree_node_t *heap_insert(heap_t *heap, void *data);
 void *heap_extract(heap_t *heap);
 void heap_delete(heap_t *heap, void (*free_data)(void *));
 
-/* */
+/*huffman prototypes*/
+heap_t *huffman_priority_queue(char *data, size_t *freq, size_t size);
 
 #endif /* _HEAP_H_ */
