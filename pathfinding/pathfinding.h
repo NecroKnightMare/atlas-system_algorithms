@@ -1,7 +1,8 @@
-#ifndef _PATHFINDING_H_
-#define _PATHFINDING_H_
+#ifndef PATHFINDING_H
+#define PATHFINDING_H_
 
-#include "queue.h"
+#include "queues.h"
+
 
 /**
  * struct point_s - Structure storing coordinates
@@ -18,4 +19,4 @@ typedef struct point_s
 /*prototype functions*/
 queue_t *backtracking_array(char **map, int rows, int cols, point_t const *start, point_t const *target);
 
-#endif /* !_PATHFINDING_H_ */
+#endif /* PATHFINDING_H */

@@ -1,6 +1,8 @@
 #ifndef _QUEUES_H_
 #define _QUEUES_H_
 
+#include <stddef.h>
+
 /**
  * struct queue_node_s - Queue node structure
  *
