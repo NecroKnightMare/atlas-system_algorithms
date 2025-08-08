@@ -9,7 +9,7 @@
 static int is_valid(char **map, char **visited, int rows, int cols,
 	int x, int y)
 {
-	return (x >= 0 && x < rows && y >= 0 && cols &&
+	return (x >= 0 && x < rows && y >= 0 && y < cols &&
 		map[x][y] == '0' && visited[x][y] == '0');
 }
 
