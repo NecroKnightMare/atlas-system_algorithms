@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "queues.h"
+#include <string.h>
 #include "pathfinding.h"
 
 /**
@@ -29,7 +29,7 @@ static int backtrack(char **map, char **visited, int rows, int cols,
 
 	visited[x][y] = '1';
 
-	point = malloc(sizeof(point_t));
+	point = malloc(sizeof(*point));
 	if (!point)
 		return (0);
 	point->x = x;
@@ -70,7 +70,7 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 
 	for (i = 0; i < rows; i++)
 	{
-		visited[i] = calloc(cols, sizeof(char));
+		visited[i] = calloc(cols + 1, sizeof(char));
 		if (!visited[i])
 		{
 			while (i--)
@@ -78,7 +78,9 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 			free(visited);
 			return (NULL);
 		}
+		memset(visited[i], '0', cols);
 	}
+
 	path = queue_create();
 	if (!path)
 	{
@@ -92,7 +94,7 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 	start->x, start->y))
 	{
 		queue_delete(path);
-		path =NULL;
+		path = NULL;
 	}
 
 	for (i = 0; i < rows; i++)
