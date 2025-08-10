@@ -18,7 +18,7 @@ static int is_valid(char **map, char **visited, int rows, int cols,
  */
 
 static int backtrack(char **map, char **visited, int rows, int cols,
-	point_t const *target, queue_t *path, int x, int y)
+	int x, int y, point_t const *target, queue_t *path)
 {
 	point_t *point;
 
@@ -39,10 +39,10 @@ static int backtrack(char **map, char **visited, int rows, int cols,
 	if (x == target->x && y == target->y)
 		return (1);
 
-	if (backtrack(map, visited, rows, cols, target, path, x, y + 1) ||
-	backtrack(map, visited, rows, cols, target, path, x + 1, y) ||
-	backtrack(map, visited, rows, cols, target, path, x, y - 1) ||
-	backtrack(map, visited, rows, cols, target, path, x - 1, y))
+	if (backtrack(map, visited, rows, cols, x, y + 1, target, path) ||
+	backtrack(map, visited, rows, cols, x + 1, y, target, path) ||
+	backtrack(map, visited, rows, cols, x, y - 1, target, path) ||
+	backtrack(map, visited, rows, cols, x - 1, y, target, path))
 		return (1);
 	
 	free(dequeue(path));
@@ -90,8 +90,8 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 		return (NULL);
 	}
 
-	if (!backtrack(map, visited, rows, cols, target, path,
-	start->x, start->y))
+	if (!backtrack(map, visited, rows, cols,
+	start->x, start->y, target, path))
 	{
 		queue_delete(path);
 		path = NULL;
