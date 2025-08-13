@@ -21,11 +21,10 @@ static int backtrack(char **map, int rows, int cols,
 {
 	point_t *point;
 
-	printf("Checking coordinates [%d, %d]\n", x, y);
-
 	if (!is_valid(map, rows, cols, x, y, visited))
 		return (0);
 
+	printf("Checking coordinates [%d, %d]\n", x, y);
 	visited[x][y] = 1;
 
 	point = malloc(sizeof(*point));
@@ -49,6 +48,7 @@ static int backtrack(char **map, int rows, int cols,
 	return (1);
 	
 	free(dequeue(path));
+	visited[x][y] = 0;
 	return (0);
 }
 
