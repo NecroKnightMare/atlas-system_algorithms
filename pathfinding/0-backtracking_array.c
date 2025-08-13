@@ -3,6 +3,7 @@
 #include <string.h>
 #include "pathfinding.h"
 
+static int direction_order = 0;
 
 static const int directions[4][4][2] = {
     {{0, 1}, {1, 0}, {0, -1}, {-1, 0}},/* RIGHT → BOTTOM → LEFT → TOP*/
@@ -28,9 +29,7 @@ static int backtrack(char **map, int rows, int cols,
 	int x, int y, point_t const *target, queue_t *path, char **visited)
 {
 	point_t *point;
-	int direction_order;
 
-	direction_order = 0;
 	if (!is_valid(map, rows, cols, x, y, visited))
 		return (0);
 
