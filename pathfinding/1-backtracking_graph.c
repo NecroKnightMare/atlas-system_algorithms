@@ -11,6 +11,7 @@ static int backtrack_graph(vertex_t const *current,
 	vertex_t const *target, queue_t *path)
 {
 		edge_t *edge;
+		linked_list_t *edges, *node;
 
 		if (!current || current->visited)
 		return (0);
@@ -19,7 +20,7 @@ static int backtrack_graph(vertex_t const *current,
 		((vertex_t *)current)->visited = 1;
 
 		char *name = strdup(current->content);
-		if (!name || !queue_puish(path, name))
+		if (!name || !queue_push(path, name))
 		{
 			free(name);
 			return (0);
@@ -28,8 +29,8 @@ static int backtrack_graph(vertex_t const *current,
 		if (current == target)
 			return (1);
 
-		linked_list_t *edges = current->edges;
-		for (linked_list_t *node = edges->head; node; node = node->next)
+		edges = current->edges;
+		for (node = edges->head; node; node = node->next)
 		{
 			edge = (edge_t *)node->data;
 			if (!edge->dest, visited && backtrack_graph(edge->dest, target, path))
