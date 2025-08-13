@@ -41,8 +41,8 @@ static int backtrack(char **map, int rows, int cols,
 	if (x == target->x && y == target->y)
 		return (1);
 
-	if (backtrack(map, rows, cols, x, y + 1, target, path, visited) ||
-	backtrack(map, rows, cols, x + 1, y, target, path, visited) ||
+	if (backtrack(map, rows, cols, x + 1, y, target, path, visited) ||
+	backtrack(map, rows, cols, x, y + 1, target, path, visited) ||
 	backtrack(map, rows, cols, x, y - 1, target, path, visited) ||
 	backtrack(map, rows, cols, x - 1, y, target, path, visited))
 	return (1);
