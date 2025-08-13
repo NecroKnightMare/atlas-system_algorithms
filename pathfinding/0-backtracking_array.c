@@ -63,44 +63,93 @@ static int backtrack(char **map, int rows, int cols,
 queue_t *backtracking_array(char **map, int rows, int cols,
 	point_t const *start, point_t const *target)
 {
-	queue_t *path;
+    queue_t *path;
 	char **visited;
-	int i;
+	int i, direction_order;
 
-	path = queue_create();
-	if (!path)
-		return (NULL);
+	path = NULL;
+	visited = malloc(sizeof(char **) * rows);
+    for (direction_order = 0; direction_order < 4; direction_order++)
+    {
+        if (!visited)
+            return NULL;
 
-	visited = malloc(sizeof(char *) * rows);
-	if (!visited)
-	{
-		free(path);
-		return (NULL);
-	}
-	for (i = 0; i < rows; i++)
-	{
-		visited[i] = calloc(cols, sizeof(char));
-		if (!visited[i])
-		{
-			while (i--)
-				free(visited[i]);
-			free(visited);
-			free(path);
-			return (NULL);
-		}
-	}
+        for (i = 0; i < rows; i++)
+        {
+            visited[i] = calloc(cols, sizeof(char));
+            if (!visited[i])
+            {
+                while (i--)
+                    free(visited[i]);
+                free(visited);
+                return NULL;
+            }
+        }
 
-	if (!backtrack(map, rows, cols, start->x, start->y, target, path, visited))
-	{
-		for (i = 0; i < rows; i++)
-			free(visited[i]);
-		free(visited);
-		free(path);
-		return (NULL);
-	}
-	for (i = 0; i < rows; i++)
-		free(visited[i]);
-	free(visited);
+        path = queue_create();
+        if (!path)
+        {
+            for (int i = 0; i < rows; i++)
+                free(visited[i]);
+            free(visited);
+            return NULL;
+        }
 
-	return (path);
+        if (backtrack(map, rows, cols, start->x, start->y, target, path, visited))
+        {
+            for (int i = 0; i < rows; i++)
+                free(visited[i]);
+            free(visited);
+            return path;
+        }
+
+        for (int i = 0; i < rows; i++)
+            free(visited[i]);
+        free(visited);
+        free(path);
+        path = NULL;
+    }
+
+    return (NULL);
 }
+// 	queue_t *path;
+// 	char **visited;
+// 	int i;
+
+// 	path = queue_create();
+// 	if (!path)
+// 		return (NULL);
+
+// 	visited = malloc(sizeof(char *) * rows);
+// 	if (!visited)
+// 	{
+// 		free(path);
+// 		return (NULL);
+// 	}
+// 	for (i = 0; i < rows; i++)
+// 	{
+// 		visited[i] = calloc(cols, sizeof(char));
+// 		if (!visited[i])
+// 		{
+// 			while (i--)
+// 				free(visited[i]);
+// 			free(visited);
+// 			free(path);
+// 			return (NULL);
+// 		}
+// 	}
+
+// 	if (!backtrack(map, rows, cols, start->x, start->y, target, path, visited))
+// 	{
+// 		for (i = 0; i < rows; i++)
+// 			free(visited[i]);
+// 		free(visited);
+// 		free(path);
+// 		return (NULL);
+// 	}
+// 	for (i = 0; i < rows; i++)
+// 		free(visited[i]);
+// 	free(visited);
+
+// 	return (path);
+// }
