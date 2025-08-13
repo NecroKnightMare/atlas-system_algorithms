@@ -46,7 +46,7 @@ static int backtrack(char **map, int rows, int cols,
 	backtrack(map, rows, cols, x + 1, y, target, path, visited) ||
 	backtrack(map, rows, cols, x, y - 1, target, path, visited) ||
 	backtrack(map, rows, cols, x - 1, y, target, path, visited))
-		return (1);
+	return (1);
 	
 	free(dequeue(path));
 	return (0);
