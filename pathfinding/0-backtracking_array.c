@@ -3,6 +3,16 @@
 #include <string.h>
 #include "pathfinding.h"
 
+static int direction_order = 0;
+/*Default to 0 (RIGHT → BOTTOM → LEFT → TOP)*/
+
+static const int directions[4][4][2] = {
+    {{0, 1}, {1, 0}, {0, -1}, {-1, 0}},/* RIGHT → BOTTOM → LEFT → TOP*/
+    {{1, 0}, {0, 1}, {0, -1}, {-1, 0}}, /*BOTTOM → RIGHT → LEFT → TOP*/
+    {{0, -1}, {1, 0}, {0, 1}, {-1, 0}}, /*LEFT → BOTTOM → RIGHT → TOP*/
+    {{-1, 0}, {0, 1}, {1, 0}, {0, -1}}  /*TOP → RIGHT → BOTTOM → LEFT*/
+};
+
 /**
  * is_valid - checks if cell is within range and walkable
  */
@@ -41,11 +51,14 @@ static int backtrack(char **map, int rows, int cols,
 	if (x == target->x && y == target->y)
 		return (1);
 
-	if (backtrack(map, rows, cols, x + 1, y, target, path, visited) ||
-	backtrack(map, rows, cols, x, y + 1, target, path, visited) ||
-	backtrack(map, rows, cols, x, y - 1, target, path, visited) ||
-	backtrack(map, rows, cols, x - 1, y, target, path, visited))
-	return (1);
+for (int i = 0; i < 4; i++)
+{
+    int nx = x + directions[direction_order][i][0];
+    int ny = y + directions[direction_order][i][1];
+
+    if (backtrack(map, rows, cols, nx, ny, target, path, visited))
+        return 1;
+}
 	
 	free(dequeue(path));
 	visited[x][y] = 0;
