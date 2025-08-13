@@ -3,8 +3,6 @@
 #include <string.h>
 #include "pathfinding.h"
 
-static int direction_order = 0;
-/*Default to 0 (RIGHT → BOTTOM → LEFT → TOP)*/
 
 static const int directions[4][4][2] = {
     {{0, 1}, {1, 0}, {0, -1}, {-1, 0}},/* RIGHT → BOTTOM → LEFT → TOP*/
@@ -30,7 +28,9 @@ static int backtrack(char **map, int rows, int cols,
 	int x, int y, point_t const *target, queue_t *path, char **visited)
 {
 	point_t *point;
+	int direction_order;
 
+	direction_order = 0;
 	if (!is_valid(map, rows, cols, x, y, visited))
 		return (0);
 
@@ -42,9 +42,11 @@ static int backtrack(char **map, int rows, int cols,
 		return (0);
 	point->x = x;
 	point->y = y;
+
 	if (!queue_push_back(path, point))
 	{
 		free(point);
+		visited[x][y] = 0;
 		return (0);
 	}
 
@@ -81,12 +83,12 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 	int i, direction_order;
 
 	path = NULL;
-	visited = malloc(sizeof(char **) * rows);
+	visited = NULL;
     for (direction_order = 0; direction_order < 4; direction_order++)
     {
+		visited = malloc(sizeof(char *) * rows);
         if (!visited)
-            return NULL;
-
+            return (NULL);
         for (i = 0; i < rows; i++)
         {
             visited[i] = calloc(cols, sizeof(char));
@@ -95,28 +97,28 @@ queue_t *backtracking_array(char **map, int rows, int cols,
                 while (i--)
                     free(visited[i]);
                 free(visited);
-                return NULL;
+                return (NULL);
             }
         }
 
         path = queue_create();
         if (!path)
         {
-            for (int i = 0; i < rows; i++)
+            for (i = 0; i < rows; i++)
                 free(visited[i]);
             free(visited);
-            return NULL;
+            return (NULL);
         }
 
         if (backtrack(map, rows, cols, start->x, start->y, target, path, visited))
         {
-            for (int i = 0; i < rows; i++)
+            for (i = 0; i < rows; i++)
                 free(visited[i]);
             free(visited);
-            return path;
+            return (path);
         }
 
-        for (int i = 0; i < rows; i++)
+        for (i = 0; i < rows; i++)
             free(visited[i]);
         free(visited);
         free(path);
