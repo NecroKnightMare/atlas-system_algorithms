@@ -39,7 +39,7 @@ direction_t *get_directions(int *count);
 /*prototype functions*/
 queue_t *backtracking_array(char **map, int rows, int cols,
 	point_t const *start, point_t const *target);
-/*queue_t *backtracking_graph(graph_t *graph, vertex_t const *start,
-	vertex_t const *target);*/
+queue_t *backtracking_graph(graph_t *graph, vertex_t const *start,
+	vertex_t const *target);
 
 #endif /* PATHFINDING_H */
