@@ -42,7 +42,19 @@ static int backtrack(char **map, int rows, int cols,
 	}
 
 	if (x == target->x && y == target->y)
+	{
+		point = malloc(sizeof(*point));
+		if (!point)
+			return (0);
+		point->x = x;
+		point->y = y;
+		if (!queue_push_back(path, point))
+		{
+			free(point);
+			return (0);
+		}
 		return (1);
+	}
 
 	for (i = 0; i < dir_count; i++)
 	{
@@ -50,6 +62,16 @@ static int backtrack(char **map, int rows, int cols,
 		new_y = y + dy[i];
 
 		if (backtrack(map, rows, cols, new_x, new_y, target, visited, path))
+			point = malloc(sizeof(*point));
+			if (!point)
+				return (0);
+			point->x = new_x;
+			point->y = new_y;
+			if (!queue_push_back(path, point))
+			{
+				free(point);
+				return (0);
+			}
 			return (1);
 	}
 	
