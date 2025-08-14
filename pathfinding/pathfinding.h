@@ -3,6 +3,7 @@
 
 #include "queues.h"
 #include "graphs.h"
+#include "directions.h"
 
 /**
  * struct point_s - Structure storing coordinates
