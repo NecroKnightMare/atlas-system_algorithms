@@ -62,6 +62,7 @@ static int backtrack(char **map, int rows, int cols,
 		new_y = y + dy[i];
 
 		if (backtrack(map, rows, cols, new_x, new_y, target, visited, path))
+		{
 			point = malloc(sizeof(*point));
 			if (!point)
 				return (0);
@@ -73,8 +74,9 @@ static int backtrack(char **map, int rows, int cols,
 				return (0);
 			}
 			return (1);
+		}
 	}
-	
+
 	free(dequeue(path));
 	visited[y][x] = 0;
 	return (0);
