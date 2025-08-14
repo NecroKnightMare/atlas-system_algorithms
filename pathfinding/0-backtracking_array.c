@@ -34,8 +34,8 @@ static int backtrack(char **map, int rows, int cols,
 {
 	int i, new_x, new_y;
 	point_t *point;
-	const int dx[] = {1, 0, -1, 0};
-	const int dy[] = {0, 1, 0, -1};
+	const int dx[] = {0, 1, 0, -1};
+	const int dy[] = {1, 0, -1, 0};
 
 	if (!is_valid(x, y, rows, cols) || map[y][x] == '1' || visited[y][x])
 		return (0);
