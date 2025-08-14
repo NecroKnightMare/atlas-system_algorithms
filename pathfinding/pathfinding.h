@@ -12,8 +12,8 @@
  */
 typedef struct point_s
 {
-    int x;
-    int y;
+	int x;
+	int y;
 } point_t;
 
 typedef struct direction_s {
@@ -22,19 +22,6 @@ typedef struct direction_s {
 } direction_t;
 
 direction_t *get_directions(int *count);
-
-/*additional struct for vertex and edge*/
-// typedef struct vertex_s {
-// 	char *content;
-// 	size_t index;
-// 	linked_list_t *edges;
-// 	int visited;
-// } vertex_t;
-
-// typedef struct edge_s {
-// 	vertex_t *dest;
-// 	int weight;
-// } edge_t;
 
 /*prototype functions*/
 queue_t *backtracking_array(char **map, int rows, int cols,
