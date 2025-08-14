@@ -5,6 +5,11 @@
 
 /**
  * is_valid - checks if cell is within range and walkable
+ * @x: x coordinate
+ * @y: y coordinate
+ * @rows: number of rows
+ * @cols: number of columns
+ * Return: 1 if valid, 0 otherwise
  */
 static int is_valid(int x, int y, int rows, int cols)
 {
@@ -13,6 +18,15 @@ static int is_valid(int x, int y, int rows, int cols)
 
 /**
  * backtrack - backtracks path recursively
+ * @map: pointer to 2d array
+ * @rows: number of rows
+ * @cols: number of columns
+ * @x: current x coordinate
+ * @y: current y coordinate
+ * @target: pointer to target point
+ * @visited: pointer to 2d array of visited cells
+ * @path: pointer to queue for the path
+ * Return: 1 if path found, 0 otherwise
  */
 
 static int backtrack(char **map, int rows, int cols,
@@ -26,7 +40,6 @@ static int backtrack(char **map, int rows, int cols,
 	if (!is_valid(x, y, rows, cols) || map[y][x] == '1' || visited[y][x])
 		return (0);
 
-	printf("Checking coordinates [%d, %d]\n", x, y);
 	visited[y][x] = 1;
 
 	if (x == target->x && y == target->y)
@@ -60,49 +73,6 @@ static int backtrack(char **map, int rows, int cols,
 	visited[y][x] = 0;
 	return (0);
 }
-
-/*static int backtrack(char **map, int rows, int cols,
-	int x, int y, point_t const *target, char **visited, queue_t *path)
-{
-	point_t *point;
-	int i, new_x, new_y;
-	const int dir_count = 4;
-	const int dx[] = {1, 0, -1, 0};
-	const int dy[] = {0, 1, 0, -1};
-
-	if (!is_valid(x, y, rows, cols) || map[y][x] == '1' || visited[y][x])
-		return (0);
-
-	printf("Checking coordinates [%d, %d]\n", x, y);
-	visited[y][x] = 1;
-
-	point = malloc(sizeof(*point));
-	if (!point)
-		return (0);
-	point->x = x;
-	point->y = y;
-	if (!queue_push_back(path, point))
-	{
-		free(point);
-		return (0);
-	}
-
-	if (x == target->x && y == target->y)
-		return (1);
-
-	for (i = 0; i < dir_count; i++)
-	{
-		new_x = x + dx[i];
-		new_y = y + dy[i];
-
-		if (backtrack(map, rows, cols, new_x, new_y, target, visited, path))
-			return (1);
-	}
-	
-	free(dequeue(path));
-	visited[y][x] = 0;
-	return (0);
-} old logic */
 
 /**
  * alloc_visited - allocates 2d array
