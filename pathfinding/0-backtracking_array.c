@@ -6,10 +6,9 @@
 /**
  * is_valid - checks if cell is within range and walkable
  */
-static int is_valid(char **map, int rows, int cols,
-	int x, int y, char **visited){
-	return (x >= 0 && x < rows && y >= 0 && y < cols &&
-		map[x][y] == '0' && visited[x][y] == 0);
+static int is_valid(int x, int y, int rows, int cols)
+{
+	return (x >= 0 && x < cols && y >= 0 && y < rows);
 }
 
 /**
@@ -17,15 +16,18 @@ static int is_valid(char **map, int rows, int cols,
  */
 
 static int backtrack(char **map, int rows, int cols,
-	int x, int y, point_t const *target, queue_t *path, char **visited)
+	int x, int y, point_t const *target, char **visited, queue_t *path)
 {
 	point_t *point;
 
-	if (!is_valid(map, rows, cols, x, y, visited))
+	if (!is_valid(x, y, rows, cols))
+		return (0);
+
+	if (map[y][x] == '1' || visited[y][x] == 1)
 		return (0);
 
 	printf("Checking coordinates [%d, %d]\n", x, y);
-	visited[x][y] = 1;
+	visited[y][x] = 1;
 
 	point = malloc(sizeof(*point));
 	if (!point)
@@ -41,15 +43,62 @@ static int backtrack(char **map, int rows, int cols,
 	if (x == target->x && y == target->y)
 		return (1);
 
-	if (backtrack(map, rows, cols, x + 1, y, target, path, visited) ||
-	backtrack(map, rows, cols, x + 1, y + 1, target, path, visited) ||
-	backtrack(map, rows, cols, x, y - 1, target, path, visited) ||
-	backtrack(map, rows, cols, x - 1, y, target, path, visited))
+	if (backtrack(map, rows, cols, x + 1, y, target, visited, path) ||
+	backtrack(map, rows, cols, x + 1, y + 1, target, visited, path) ||
+	backtrack(map, rows, cols, x, y - 1, target, visited, path) ||
+	backtrack(map, rows, cols, x - 1, y, target, visited, path))
 	return (1);
 	
 	free(dequeue(path));
-	visited[x][y] = 0;
+	visited[y][x] = 0;
 	return (0);
+}
+
+/**
+ * alloc_visited - allocates 2d array
+ * @rows: number of rows
+ * @cols: number of columns
+ * Return: pointer to allocated 2d array
+ */
+static char **alloc_visited(int rows, int cols)
+{
+	char **visited;
+	int r;
+	
+	visited = NULL;
+
+	visited = malloc(sizeof(*visited) * rows);
+	if (!visited)
+		return (NULL);
+	for (r = 0; r < rows; r++)
+	{
+		visited[r] = calloc((size_t)cols, sizeof(**visited));
+		if (!visited[r])
+		{
+			while (r--)
+				free(visited[r]);
+			free(visited);
+			return (NULL);
+		}
+	}
+	return (visited);
+}
+
+/**
+ * free_visited - frees allocated memory for visited cells
+ * @visited: pointer to 2d array
+ * @rows: number of rows
+ */
+static void free_visited(char **visited, int rows)
+{
+	int r;
+
+	if (!visited)
+		return;
+
+	for (r = 0; r < rows; r++)
+		free(visited[r]);
+	free(visited);
 }
 
 /**
@@ -65,42 +114,27 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 {
 	queue_t *path;
 	char **visited;
-	int i;
+
+	if (!map || !start || !target || rows <= 0 || cols <= 0)
+		return (NULL);
 
 	path = queue_create();
 	if (!path)
 		return (NULL);
 
-	visited = malloc(sizeof(char *) * rows);
+	visited = alloc_visited(rows, cols);
 	if (!visited)
 	{
-		free(path);
+		queue_delete(path);
 		return (NULL);
 	}
-	for (i = 0; i < rows; i++)
+
+	if (!backtrack(map, rows, cols, start->x, start->y, target, visited, path))
 	{
-		visited[i] = calloc(cols, sizeof(char));
-		if (!visited[i])
-		{
-			while (i--)
-				free(visited[i]);
-			free(visited);
-			free(path);
-			return (NULL);
-		}
+		queue_delete(path);
+		path = NULL;
 	}
 
-	if (!backtrack(map, rows, cols, start->x, start->y, target, path, visited))
-	{
-		for (i = 0; i < rows; i++)
-			free(visited[i]);
-		free(visited);
-		free(path);
-		return (NULL);
-	}
-	for (i = 0; i < rows; i++)
-		free(visited[i]);
-	free(visited);
-
+	free_visited(visited, rows);
 	return (path);
 }
