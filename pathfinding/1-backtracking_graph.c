@@ -60,7 +60,7 @@ static int backtrack(vertex_t *current, vertex_t *target, queue_t *path,
  * Return: Queue containing the path, or NULL on failure
  */
 queue_t *backtracking_graph(graph_t *graph,
-    const vertex_t *start, const vertex_t *target)
+	const vertex_t *start, const vertex_t *target)
 {
 	queue_t *path;
 	/*size_t max_vertices;*/

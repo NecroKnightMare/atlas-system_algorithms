@@ -16,7 +16,8 @@ typedef struct point_s
 	int y;
 } point_t;
 
-typedef struct direction_s {
+typedef struct direction_s
+{
 	int dx;
 	int dy;
 } direction_t;
