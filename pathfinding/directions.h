@@ -1,6 +1,8 @@
 #ifndef DIRECTIONS_H
 #define DIRECTIONS_H
 
+#include "pathfinding.h"
+
 typedef struct direction_s {
 	int dx;
 	int dy;
