@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "pathfinding.h"
-#include "directions.h"
 
 /**
  * is_valid - checks if cell is within range and walkable
@@ -20,10 +19,10 @@ static int backtrack(char **map, int rows, int cols,
 	int x, int y, point_t const *target, char **visited, queue_t *path)
 {
 	point_t *point;
-	int dir_count, i, new_x, new_y;
-	direction_t *dirs;
-
-	dirs = get_directions(&dir_count);
+	int i, new_x, new_y;
+	const int dir_count = 4;
+	const int dx[] = {1, 0, -1, 0};
+	const int dy[] = {0, 1, 0, -1};
 
 	if (!is_valid(x, y, rows, cols) || map[y][x] == '1' || visited[y][x])
 		return (0);
@@ -47,8 +46,8 @@ static int backtrack(char **map, int rows, int cols,
 
 	for (i = 0; i < dir_count; i++)
 	{
-		new_x = x + dirs[i].dx;
-		new_y = y + dirs[i].dy;
+		new_x = x + dx[i];
+		new_y = y + dy[i];
 
 		if (backtrack(map, rows, cols, new_x, new_y, target, visited, path))
 			return (1);

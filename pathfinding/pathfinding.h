@@ -3,7 +3,6 @@
 
 #include "queues.h"
 #include "graphs.h"
-#include "directions.h"
 
 /**
  * struct point_s - Structure storing coordinates
@@ -17,6 +16,12 @@ typedef struct point_s
     int y;
 } point_t;
 
+typedef struct direction_s {
+	int dx;
+	int dy;
+} direction_t;
+
+direction_t *get_directions(int *count);
 
 /*additional struct for vertex and edge*/
 // typedef struct vertex_s {
