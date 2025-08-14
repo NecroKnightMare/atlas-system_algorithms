@@ -16,12 +16,6 @@ typedef struct point_s
     int y;
 } point_t;
 
-typedef struct direction_s {
-	int dx;
-	int dy;
-} direction_t;
-
-direction_t *get_directions(int *count);
 
 /*additional struct for vertex and edge*/
 // typedef struct vertex_s {

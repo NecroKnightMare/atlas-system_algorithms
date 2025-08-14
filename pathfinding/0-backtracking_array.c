@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "pathfinding.h"
+#include "directions.h"
 
 /**
  * is_valid - checks if cell is within range and walkable

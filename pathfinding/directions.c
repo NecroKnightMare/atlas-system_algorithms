@@ -1,4 +1,4 @@
-#include "pathfinding.h"
+#include "directions.h"
 
 direction_t *get_directions(int *count)
 {
