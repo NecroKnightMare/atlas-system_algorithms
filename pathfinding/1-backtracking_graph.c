@@ -17,7 +17,7 @@
  * Return: 1 if path found, 0 otherwise
  */
 static int backtrack(vertex_t *current, vertex_t *target,
-                     queue_t *path, char **visited, size_t count)
+                     queue_t *path, vertex_t **visited, size_t count)
 {
 	size_t i;
 	edge_t *edge;
@@ -25,13 +25,12 @@ static int backtrack(vertex_t *current, vertex_t *target,
 	if (!current || !target || !path || !visited)
 		return (0);
 
-	printf("Checking %s\n", current->content);
-
 	for (i = 0; i < count; i++)
-		if (strcmp(visited[i], current->content) == 0)
+		if (visited[i] == current)
 			return (0);
 
-	visited[count++] = (char *)current->content;
+	visited[count++] = current;
+	printf("Checking %s\n", current->content);
 
 	if (current == target)
 	{
@@ -65,8 +64,8 @@ queue_t *backtracking_graph(graph_t *graph,
                             const vertex_t *target)
 {
 	queue_t *path;
-	char **visited;
-	size_t max_vertices;
+	/*size_t max_vertices;*/
+	vertex_t **visited;
 
 	if (!graph || !start || !target)
 		return (NULL);
@@ -75,8 +74,8 @@ queue_t *backtracking_graph(graph_t *graph,
 	if (!path)
 		return (NULL);
 
-	max_vertices = graph->nb_vertices;
-	visited = malloc(sizeof(char *) * max_vertices);
+	/*max_vertices = graph->nb_vertices;*/
+	visited = malloc(sizeof(vertex_t *) * graph->nb_vertices);
 	if (!visited)
 	{
 		queue_delete(path);
