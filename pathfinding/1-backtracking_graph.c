@@ -1,63 +1,35 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "pathfinding.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-/**
- * backtrack_graph - helper to explore paths recursively
- */
-
-static int backtrack_graph(vertex_t const *current,
-	vertex_t const *target, queue_t *path)
+static int backtrack(vertex_t *current, vertex_t *target,
+                     queue_t *path, char **visited, size_t count)
 {
-		edge_t *edge;
-		linked_list_t *edges, *node;
+    printf("Checking %s\n", current->content);
 
-		if (!current || current->visited)
-		return (0);
+    for (size_t i = 0; i < count; i++)
+        if (visited[i] == current->content)
+            return 0;
 
-		printf("Checking %s\n", current->content);
-		((vertex_t *)current)->visited = 1;
+    visited[count++] = (char *)current->content;
 
-		char *name = strdup(current->content);
-		if (!name || !queue_push(path, name))
-		{
-			free(name);
-			return (0);
-		}
+    if (current == target)
+    {
+        enqueue(path, strdup(current->content));
+        return 1;
+    }
 
-		if (current == target)
-			return (1);
+    edge_t *edge = current->edges;
+    while (edge)
+    {
+        if (backtrack(edge->dest, target, path, visited, count))
+        {
+            enqueue(path, strdup(current->content));
+            return 1;
+        }
+        edge = edge->next;
+    }
 
-		edges = current->edges;
-		for (node = edges->head; node; node = node->next)
-		{
-			edge = (edge_t *)node->data;
-			if (!edge->dest, visited && backtrack_graph(edge->dest, target, path))
-				return (1);
-		}
-
-		free(queue_pop(path));
-		((vertex_t *)current)->visited = 0;
-		return (0);
-}
-
-/**
- * backtracking_graph - entry point for backtracking
- */
-queue_t *backtracking_graph(graph_t *graph,
-	vertex_t const *start, vertex_t const *target)
-{
-	queue_t *path;
-
-	if (!graph || !start || !target)
-		return (NULL);
-
-	path = queue_create();
-	if (!path)
-	{
-		queue_delete(path);
-		return (NULL);
-	}
-	return (path);
+    return 0;
 }
