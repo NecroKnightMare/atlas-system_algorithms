@@ -1,7 +1,6 @@
 #ifndef PATHFINDING_H
-#define PATHFINDING_H_
+#define PATHFINDING_H
 
-#include <stddef.h>
 #include "queues.h"
 #include "graphs.h"
 
@@ -16,6 +15,13 @@ typedef struct point_s
     int x;
     int y;
 } point_t;
+
+typedef struct direction_s {
+	int dx;
+	int dy;
+} direction_t;
+
+direction_t *get_directions(int *count);
 
 /*additional struct for vertex and edge*/
 // typedef struct vertex_s {

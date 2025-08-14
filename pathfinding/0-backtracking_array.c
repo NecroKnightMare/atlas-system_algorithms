@@ -19,11 +19,12 @@ static int backtrack(char **map, int rows, int cols,
 	int x, int y, point_t const *target, char **visited, queue_t *path)
 {
 	point_t *point;
+	int dir_count, i;
+	direction_t *dirs;
 
-	if (!is_valid(x, y, rows, cols))
-		return (0);
+	dirs = get_directions(&dir_count);
 
-	if (map[y][x] == '1' || visited[y][x] == 1)
+	if (!is_valid(x, y, rows, cols) || map[y][x] == '1' || visited[y][x])
 		return (0);
 
 	printf("Checking coordinates [%d, %d]\n", x, y);
@@ -43,11 +44,14 @@ static int backtrack(char **map, int rows, int cols,
 	if (x == target->x && y == target->y)
 		return (1);
 
-	if (backtrack(map, rows, cols, x + 1, y, target, visited, path) ||
-	backtrack(map, rows, cols, x + 1, y + 1, target, visited, path) ||
-	backtrack(map, rows, cols, x, y - 1, target, visited, path) ||
-	backtrack(map, rows, cols, x - 1, y, target, visited, path))
-	return (1);
+	for (i = 0; i < dir_count; i++)
+	{
+		int new_x = x + dirs[i].dx;
+		int new_y = y + dirs[i].dy;
+
+		if (backtrack(map, rows, cols, new_x, new_y, target, visited, path))
+			return (1);
+	}
 	
 	free(dequeue(path));
 	visited[y][x] = 0;
@@ -131,8 +135,9 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 
 	if (!backtrack(map, rows, cols, start->x, start->y, target, visited, path))
 	{
-		queue_delete(path);
-		path = NULL;
+		free(dequeue(path));
+		visited[start->y][start->x] = 0;
+		return (0);
 	}
 
 	free_visited(visited, rows);
