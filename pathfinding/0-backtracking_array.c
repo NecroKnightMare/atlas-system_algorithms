@@ -40,6 +40,7 @@ static int backtrack(char **map, int rows, int cols,
 	if (!is_valid(x, y, rows, cols) || map[y][x] == '1' || visited[y][x])
 		return (0);
 
+	printf("Checking coordinates [%d, %d]\n", x, y);
 	visited[y][x] = 1;
 
 	if (x == target->x && y == target->y)
