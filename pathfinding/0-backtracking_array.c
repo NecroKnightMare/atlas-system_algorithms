@@ -20,7 +20,7 @@ static int backtrack(char **map, int rows, int cols,
 	int x, int y, point_t const *target, char **visited, queue_t *path)
 {
 	point_t *point;
-	int dir_count, i;
+	int dir_count, i, new_x, new_y;
 	direction_t *dirs;
 
 	dirs = get_directions(&dir_count);
@@ -47,8 +47,8 @@ static int backtrack(char **map, int rows, int cols,
 
 	for (i = 0; i < dir_count; i++)
 	{
-		int new_x = x + dirs[i].dx;
-		int new_y = y + dirs[i].dy;
+		new_x = x + dirs[i].dx;
+		new_y = y + dirs[i].dy;
 
 		if (backtrack(map, rows, cols, new_x, new_y, target, visited, path))
 			return (1);
