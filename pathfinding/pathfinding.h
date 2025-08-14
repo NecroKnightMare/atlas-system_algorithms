@@ -16,6 +16,12 @@ typedef struct point_s
 	int y;
 } point_t;
 
+/**
+ * struct direction_s - Structure storing movement direction
+ *
+ * @dx: Change in X coordinate
+ * @dy: Change in Y coordinate
+ */
 typedef struct direction_s
 {
 	int dx;
