@@ -135,9 +135,8 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 
 	if (!backtrack(map, rows, cols, start->x, start->y, target, visited, path))
 	{
-		free(dequeue(path));
-		visited[start->y][start->x] = 0;
-		return (0);
+		queue_delete(path);
+		path = NULL;
 	}
 
 	free_visited(visited, rows);
