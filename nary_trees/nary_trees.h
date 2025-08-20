@@ -1,6 +1,7 @@
 #ifndef _NARY_TREES_H_
 #define _NARY_TREES_H_
 
+#include <stddef.h>
 /**
  * struct nary_tree_s - N-ary tree node structure
  *

@@ -1,5 +1,7 @@
 #include "nary_trees.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <stddef.h>
 
 /**
  * max_depths - helper to find two largest depths among children
