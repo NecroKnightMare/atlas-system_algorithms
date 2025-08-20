@@ -8,7 +8,7 @@
  * @action: function to apply to each node
  * @depth: current depth in the tree
  * Return: max depth
- * 
+ *
  */
 static size_t traverse_helper(const nary_tree_t *node, 
 	void(*action)(const nary_tree_t *, size_t), size_t depth)
@@ -41,7 +41,7 @@ static size_t traverse_helper(const nary_tree_t *node,
  * @tree: pointer to the root of the tree
  * @action: function to apply to each node
  */
-size_t nary_tree_traverse(const nary_tree_t *root, 
+size_t nary_tree_traverse(const nary_tree_t *root,
 	void(*action)(const nary_tree_t *, size_t))
 {
 	if (!root)
