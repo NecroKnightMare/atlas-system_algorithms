@@ -10,7 +10,6 @@
  * @param v: Pointer to the vertex
  * @param nodes: Array of Dijkstra nodes
  * @param size: Size of the nodes array
- *
  * Return: Pointer to the Dijkstra node associated with the vertex, or NULL
  */
 static dijkstra_node_t *get_node(vertex_t *v, dijkstra_node_t *nodes[], size_t size)
@@ -23,10 +22,8 @@ static dijkstra_node_t *get_node(vertex_t *v, dijkstra_node_t *nodes[], size_t s
 
 /**
  * extract_min - Extracts the unvisited node with the smallest distance
- *
  * @param nodes: Array of Dijkstra nodes
  * @param size: Size of the nodes array
- *
  * Return: Pointer to the unvisited Dijkstra node with the smallest distance, or NULL
  */
 static dijkstra_node_t *extract_min(dijkstra_node_t *nodes[], size_t size)
@@ -43,7 +40,6 @@ static dijkstra_node_t *extract_min(dijkstra_node_t *nodes[], size_t size)
 /**
  * build_path - Builds the path from target to start using prev pointers
  * @param target_node: Pointer to the target Dijkstra node
- *
  * Return: Queue containing the path from start to target, or NULL
  */
 static queue_t *build_path(dijkstra_node_t *target_node)
@@ -69,11 +65,9 @@ static queue_t *build_path(dijkstra_node_t *target_node)
 
 /**
  * dijkstra_graph - Finds the shortest path using Dijkstra's algorithm
- *
  * @param graph: Pointer to the graph
  * @param start: Pointer to the starting vertex
  * @param target: Pointer to the target vertex
- *
  * Return: Queue containing the path from start to target, or NULL
  */
 queue_t *dijkstra_graph(graph_t *graph, const vertex_t *start, const vertex_t *target)
