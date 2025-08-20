@@ -8,6 +8,7 @@ Betty#include <stdlib.h>
  * @action: function to apply to each node
  * @depth: current depth in the tree
  * Return: max depth
+ * 
  */
 static size_t traverse_helper(const nary_tree_t *node, 
 	void(*action)(const nary_tree_t *, size_t), size_t depth)
