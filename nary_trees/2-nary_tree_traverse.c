@@ -10,7 +10,7 @@
  * Return: max depth
  *
  */
-static size_t traverse_helper(const nary_tree_t *node, 
+static size_t traverse_helper(const nary_tree_t *node,
 	void(*action)(const nary_tree_t *, size_t), size_t depth)
 {
 	size_t max_depth = depth;
