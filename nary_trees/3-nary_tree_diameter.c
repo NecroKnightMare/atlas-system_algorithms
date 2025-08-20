@@ -52,5 +52,5 @@ size_t nary_tree_diameter(nary_tree_t const *root)
 		return (0);
 
 	max_depths(root, &diameter);
-	return (diameter);
+	return (diameter + 1);
 }
