@@ -1,4 +1,4 @@
-Betty#include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include "nary_trees.h"
 
